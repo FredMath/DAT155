@@ -14,6 +14,8 @@ import MouseLookController from './controls/MouseLookController.js';
 import TerrainBufferGeometry from './terrain/TerrainBufferGeometry.js';
 import {SphereBufferGeometry, TextureLoader} from "./lib/three.module.js";
 import {BackSide} from "./lib/three.module.js";
+import {MeshPhongMaterial, PlaneBufferGeometry} from "./lib/three.module.js";
+import {AmbientLight} from "./lib/three.module.js";
 
 const scene = new Scene();
 
@@ -61,6 +63,12 @@ camera.position.y = 15;
  * An alternative way to handle asynchronous functions is async/await
  *  - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
  */
+
+let light = new AmbientLight(0x404040);
+light.intensity = 2;
+scene.add(light);
+
+let loader = new TextureLoader();
 Utilities.loadImage('resources/images/heightmap.png').then((heightmapImage) => {
 
     const terrainGeometry = new TerrainBufferGeometry({
@@ -68,9 +76,8 @@ Utilities.loadImage('resources/images/heightmap.png').then((heightmapImage) => {
         numberOfSubdivisions: 128
     });
 
-    const terrainMaterial = new MeshBasicMaterial({
-        color: 0x777777,
-        wireframe: true
+    const terrainMaterial = new MeshPhongMaterial({
+        map: loader.load("resources/images/terrain.jpg")
     });
 
     const terrain = new Mesh(terrainGeometry, terrainMaterial);
@@ -78,6 +85,19 @@ Utilities.loadImage('resources/images/heightmap.png').then((heightmapImage) => {
     scene.add(terrain);
 
 });
+
+let waterGeometry = new PlaneBufferGeometry(200, 200);
+let waterTexture = loader.load("resources/images/water.jpg");
+
+let waterMaterial = new MeshPhongMaterial({
+    map: waterTexture,
+    side: 2
+});
+
+let water = new Mesh(waterGeometry, waterMaterial);
+water.translateY(7);
+water.rotation.x = Math.PI * -0.5;
+scene.add(water);
 
 /**
  * Set up camera controller:
@@ -117,21 +137,30 @@ document.addEventListener('pointerlockchange', () => {
  * to get a vec3 representing the direction the camera is pointing.
  */
 
-let moveForward = false;
-let moveBackward = false;
-let moveLeft = false;
-let moveRight = false;
-let moveUp = false;
-let moveDown = false;
-
+let moveSpeed = 2;
 let direction = camera.getWorldDirection();
-
 document.addEventListener('keydown', (e) => {
-  e.preventDefault();
+    e.preventDefault();
+    camera.getWorldDirection(direction);
 
-  if (e.code === 'keyW') {
+    switch (e.code) {
+        case 'KeyW':
+            camera.position.add(direction.multiplyScalar(moveSpeed));
+            break;
 
-  }
+        case 'KeyA':
+
+
+            break;
+
+        case 'KeyS':
+            camera.position.add(direction.multiplyScalar(-moveSpeed));
+            break;
+
+        case 'KeyD':
+            break;
+    }
+    camera.updateWorldMatrix();
 });
 
 
@@ -141,16 +170,16 @@ document.addEventListener('keydown', (e) => {
 
 
 function skydome() {
-    const skyGeometry = new SphereBufferGeometry(1000, 32, 8);
-    let loader = new TextureLoader();
+    const skyGeometry = new SphereBufferGeometry(100, 50, 50);
     const skyTexture = loader.load("resources/skydome/skyTexture.jpg");
 
-    const skyMaterial = new MeshBasicMaterial({
+    const skyMaterial = new MeshPhongMaterial({
         map: skyTexture,
+        opacity: 5.0,
+        side: 2
     });
 
     let sky = new Mesh(skyGeometry, skyMaterial);
-    sky.material.side = BackSide;
 
 
     scene.add(sky);

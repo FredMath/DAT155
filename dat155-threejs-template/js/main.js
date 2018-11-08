@@ -12,6 +12,8 @@ import Utilities from './lib/Utilities.js';
 import MouseLookController from './controls/MouseLookController.js';
 
 import TerrainBufferGeometry from './terrain/TerrainBufferGeometry.js';
+import {SphereBufferGeometry, TextureLoader} from "./lib/three.module.js";
+import {BackSide} from "./lib/three.module.js";
 
 const scene = new Scene();
 
@@ -20,7 +22,6 @@ const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight,
 const renderer = new WebGLRenderer();
 renderer.setClearColor(0xffffff);
 renderer.setSize(window.innerWidth, window.innerHeight);
-
 
 
 /**
@@ -42,8 +43,9 @@ window.addEventListener('resize', () => {
 document.body.appendChild(renderer.domElement);
 
 const geometry = new BoxBufferGeometry(1, 1, 1);
-const material = new MeshBasicMaterial({ color: 0x00ff00 });
+const material = new MeshBasicMaterial({color: 0x00ff00});
 const cube = new Mesh(geometry, material);
+
 scene.add(cube);
 
 camera.position.z = 55;
@@ -52,7 +54,7 @@ camera.position.y = 15;
 
 /**
  * Add terrain:
- * 
+ *
  * We have to wait for the image file to be loaded by the browser.
  * We pass a callback function with the stuff we want to do once the image is loaded.
  * There are many ways to handle asynchronous flow in your application.
@@ -109,28 +111,50 @@ document.addEventListener('pointerlockchange', () => {
 });
 
 
-
 /**
  * TODO: add movement with WASD.
  * Hint: You can use camera.getWorldDirection(target),
  * to get a vec3 representing the direction the camera is pointing.
  */
 
+let moveForward = false;
+let moveBackward = false;
+let moveLeft = false;
+let moveRight = false;
+let moveUp = false;
+let moveDown = false;
+
+let direction = camera.getWorldDirection();
+
+document.addEventListener('keydown', (e) => {
+  e.preventDefault();
+
+  if (e.code === 'keyW') {
+
+  }
+});
+
+
+/**
+ * Creates a skydome
+ */
+
+
 function skydome() {
-    let scene = new THREE.Scene();
+    const skyGeometry = new SphereBufferGeometry(1000, 32, 8);
+    let loader = new TextureLoader();
+    const skyTexture = loader.load("resources/skydome/skyTexture.jpg");
 
-    let skyGeometry = new THREE.SphereGeometry(1000, 25);
-    let skyTexture = new THREE.TextureLoader("/resources/skydome/skyTexture.jpg");
-
-    let material = new THREE.MeshPhongMaterial({
-        map: skyTexture
+    const skyMaterial = new MeshBasicMaterial({
+        map: skyTexture,
     });
 
-    let sky = new THREE.Mesh(skyGeometry, material);
-    sky.material.side = THREE.BackSide;
+    let sky = new Mesh(skyGeometry, skyMaterial);
+    sky.material.side = BackSide;
+
+
     scene.add(sky);
 }
-
 
 skydome();
 
@@ -150,6 +174,8 @@ function loop() {
     requestAnimationFrame(loop);
 
 }
+
+
 
 loop();
 

@@ -13,11 +13,20 @@ import MouseLookController from './controls/MouseLookController.js';
 
 import TerrainBufferGeometry from './terrain/TerrainBufferGeometry.js';
 import {SphereBufferGeometry, TextureLoader} from "./lib/three.module.js";
-import {BackSide} from "./lib/three.module.js";
 import {MeshPhongMaterial, PlaneBufferGeometry} from "./lib/three.module.js";
 import {AmbientLight} from "./lib/three.module.js";
+import {Color} from "./lib/three.module.js";
+import {Fog} from "./lib/three.module.js";
+import OBJLoader from "./lib/OBJLoader.js";
 
+
+
+let fogColor = new Color(0xffffff);
 const scene = new Scene();
+//
+let objectLoader = new OBJLoader();
+
+scene.fog = new Fog(fogColor, -10, 100);
 
 const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
@@ -54,6 +63,18 @@ camera.position.z = 55;
 camera.position.y = 15;
 
 
+objectLoader.load('resources/models/lowPolyTree/lowpolytree.obj',
+    function (object) {
+    console.log(object);
+    object.children[0].material[0].color.set(0x006400);
+    object.children[0].material[1].color.set(0x8B4513);
+
+        scene.add(object);
+
+    });
+
+
+
 /**
  * Add terrain:
  *
@@ -63,11 +84,11 @@ camera.position.y = 15;
  * An alternative way to handle asynchronous functions is async/await
  *  - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
  */
-
-let light = new AmbientLight(0x404040);
-light.intensity = 2;
-scene.add(light);
-
+function light() {
+    let light = new AmbientLight(0xffffff);
+    light.intensity = 1;
+    scene.add(light);
+}
 let loader = new TextureLoader();
 Utilities.loadImage('resources/images/heightmap.png').then((heightmapImage) => {
 
@@ -85,19 +106,21 @@ Utilities.loadImage('resources/images/heightmap.png').then((heightmapImage) => {
     scene.add(terrain);
 
 });
+function water() {
+    let waterGeometry = new PlaneBufferGeometry(200, 200);
+    let waterTexture = loader.load("resources/images/water.jpg");
 
-let waterGeometry = new PlaneBufferGeometry(200, 200);
-let waterTexture = loader.load("resources/images/water.jpg");
+    let waterMaterial = new MeshPhongMaterial({
+        map: waterTexture,
+        side: 2
+    });
 
-let waterMaterial = new MeshPhongMaterial({
-    map: waterTexture,
-    side: 2
-});
+    let water = new Mesh(waterGeometry, waterMaterial);
+    water.translateY(7);
+    water.rotation.x = Math.PI * -0.5;
+    scene.add(water);
 
-let water = new Mesh(waterGeometry, waterMaterial);
-water.translateY(7);
-water.rotation.x = Math.PI * -0.5;
-scene.add(water);
+}
 
 /**
  * Set up camera controller:
@@ -129,6 +152,7 @@ document.addEventListener('pointerlockchange', () => {
         canvas.removeEventListener('mousemove', updateCamRotation, false);
     }
 });
+
 
 
 /**
@@ -164,16 +188,18 @@ document.addEventListener('keydown', (e) => {
 });
 
 
+
+
+
 /**
  * Creates a skydome
  */
-
-
 function skydome() {
-    const skyGeometry = new SphereBufferGeometry(100, 50, 50);
-    const skyTexture = loader.load("resources/skydome/skyTexture.jpg");
+    let skyGeometry = new SphereBufferGeometry(100, 32, 16);
+    let skyTexture = loader.load("resources/skydome/skyTexture.png");
 
-    const skyMaterial = new MeshPhongMaterial({
+
+    let skyMaterial = new MeshPhongMaterial({
         map: skyTexture,
         opacity: 5.0,
         side: 2
@@ -184,8 +210,9 @@ function skydome() {
 
     scene.add(sky);
 }
-
 skydome();
+water();
+light();
 
 function loop() {
     // update controller rotation.
@@ -203,8 +230,6 @@ function loop() {
     requestAnimationFrame(loop);
 
 }
-
-
 
 loop();
 

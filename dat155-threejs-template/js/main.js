@@ -4,27 +4,32 @@ import {
     Scene,
     BoxBufferGeometry,
     MeshBasicMaterial,
-    Mesh
-} from './lib/three.module.js';
+    Mesh,
+    SphereBufferGeometry,
+    TextureLoader,
+    MeshPhongMaterial,
+    PlaneBufferGeometry,
+    AmbientLight,
+    Color,
+    Fog,
+    MTLLoader,
+    OBJLoader
+} from './lib/Three.es.js';
 
 
 import Utilities from './lib/Utilities.js';
 import MouseLookController from './controls/MouseLookController.js';
 
 import TerrainBufferGeometry from './terrain/TerrainBufferGeometry.js';
-import {SphereBufferGeometry, TextureLoader} from "./lib/three.module.js";
-import {MeshPhongMaterial, PlaneBufferGeometry} from "./lib/three.module.js";
-import {AmbientLight} from "./lib/three.module.js";
-import {Color} from "./lib/three.module.js";
-import {Fog} from "./lib/three.module.js";
-import OBJLoader from "./lib/OBJLoader.js";
+
+
 
 
 
 let fogColor = new Color(0xffffff);
 const scene = new Scene();
 //
-let objectLoader = new OBJLoader();
+
 
 scene.fog = new Fog(fogColor, -10, 100);
 
@@ -63,17 +68,23 @@ camera.position.z = 55;
 camera.position.y = 15;
 
 
-objectLoader.load('resources/models/lowPolyTree/lowpolytree.obj',
-    function (object) {
-    console.log(object);
-    object.children[0].material[0].color.set(0x006400);
-    object.children[0].material[1].color.set(0x8B4513);
 
-        scene.add(object);
+function tree() {
+    let objLoader = new OBJLoader();
+    let mtlLoader = new MTLLoader();
+    mtlLoader.load('resources/models/lowPolyTree/lowpolytree.mtl', function (materials) {
+
+        materials.preload();
+        objLoader.setMaterials(materials);
+        objLoader.load('resources/models/lowPolyTree/lowpolytree.obj', function (object) {
+            object.position.y = 12;
+
+            scene.add(object);
+
+        });
 
     });
-
-
+}
 
 /**
  * Add terrain:
@@ -116,7 +127,7 @@ function water() {
     });
 
     let water = new Mesh(waterGeometry, waterMaterial);
-    water.translateY(7);
+    water.translateY(0);
     water.rotation.x = Math.PI * -0.5;
     scene.add(water);
 
@@ -213,6 +224,7 @@ function skydome() {
 skydome();
 water();
 light();
+tree();
 
 function loop() {
     // update controller rotation.

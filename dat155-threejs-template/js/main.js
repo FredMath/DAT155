@@ -5,30 +5,37 @@ import {
     BoxBufferGeometry,
     MeshBasicMaterial,
     Mesh,
-    SphereBufferGeometry,
     TextureLoader,
     MeshPhongMaterial,
-    PlaneBufferGeometry,
     AmbientLight,
     Color,
     Fog,
-    MTLLoader,
-    OBJLoader
+    Vector3
 } from './lib/Three.es.js';
+import Tree from './terrain/Tree.js';
 
 
 import Utilities from './lib/Utilities.js';
 import MouseLookController from './controls/MouseLookController.js';
 
 import TerrainBufferGeometry from './terrain/TerrainBufferGeometry.js';
-
-
-
+import SkyDome from "./terrain/SkyDome.js";
+import Balloon from "./terrain/Balloon.js";
+import Water from "./terrain/Water.js";
+import Stone from "./terrain/Stone.js";
 
 
 let fogColor = new Color(0xffffff);
 const scene = new Scene();
-//
+
+
+let move = {
+    forward: false,
+    backwards: false,
+    left: false,
+    right: false,
+    speed: 0.02
+};
 
 
 scene.fog = new Fog(fogColor, -10, 100);
@@ -68,24 +75,6 @@ camera.position.z = 55;
 camera.position.y = 15;
 
 
-
-function tree() {
-    let objLoader = new OBJLoader();
-    let mtlLoader = new MTLLoader();
-    mtlLoader.load('resources/models/lowPolyTree/lowpolytree.mtl', function (materials) {
-
-        materials.preload();
-        objLoader.setMaterials(materials);
-        objLoader.load('resources/models/lowPolyTree/lowpolytree.obj', function (object) {
-            object.position.y = 12;
-
-            scene.add(object);
-
-        });
-
-    });
-}
-
 /**
  * Add terrain:
  *
@@ -100,8 +89,9 @@ function light() {
     light.intensity = 1;
     scene.add(light);
 }
+
 let loader = new TextureLoader();
-Utilities.loadImage('resources/images/heightmap.png').then((heightmapImage) => {
+Utilities.loadImage('resources/images/heightmap2.png').then((heightmapImage) => {
 
     const terrainGeometry = new TerrainBufferGeometry({
         heightmapImage,
@@ -115,23 +105,13 @@ Utilities.loadImage('resources/images/heightmap.png').then((heightmapImage) => {
     const terrain = new Mesh(terrainGeometry, terrainMaterial);
 
     scene.add(terrain);
+    let tree = new Tree(terrainGeometry);
+    scene.add(tree);
+    let stone = new Stone(terrainGeometry);
+    scene.add(stone);
 
 });
-function water() {
-    let waterGeometry = new PlaneBufferGeometry(200, 200);
-    let waterTexture = loader.load("resources/images/water.jpg");
 
-    let waterMaterial = new MeshPhongMaterial({
-        map: waterTexture,
-        side: 2
-    });
-
-    let water = new Mesh(waterGeometry, waterMaterial);
-    water.translateY(0);
-    water.rotation.x = Math.PI * -0.5;
-    scene.add(water);
-
-}
 
 /**
  * Set up camera controller:
@@ -165,72 +145,101 @@ document.addEventListener('pointerlockchange', () => {
 });
 
 
-
 /**
  * TODO: add movement with WASD.
  * Hint: You can use camera.getWorldDirection(target),
  * to get a vec3 representing the direction the camera is pointing.
  */
 
-let moveSpeed = 2;
-let direction = camera.getWorldDirection();
 document.addEventListener('keydown', (e) => {
-    e.preventDefault();
-    camera.getWorldDirection(direction);
-
     switch (e.code) {
         case 'KeyW':
-            camera.position.add(direction.multiplyScalar(moveSpeed));
+            move.forward = true;
+            e.preventDefault();
             break;
 
         case 'KeyA':
-
-
+            move.left = true;
+            e.preventDefault();
             break;
 
         case 'KeyS':
-            camera.position.add(direction.multiplyScalar(-moveSpeed));
+            move.backwards = true;
+            e.preventDefault();
             break;
 
         case 'KeyD':
+            move.right = true;
+            e.preventDefault()
             break;
     }
-    camera.updateWorldMatrix();
 });
 
+document.addEventListener('keyup', (e) => {
+    switch (e.code) {
+        case 'KeyW':
+            move.forward = false;
+            e.preventDefault();
+            break;
 
+        case 'KeyA':
+            move.left = false;
+            e.preventDefault();
+            break;
 
+        case 'KeyS':
+            move.backwards = false;
+            e.preventDefault();
+            break;
+
+        case 'KeyD':
+            move.right = false;
+            e.preventDefault();
+            break;
+    }
+});
 
 
 /**
  * Creates a skydome
  */
-function skydome() {
-    let skyGeometry = new SphereBufferGeometry(100, 32, 16);
-    let skyTexture = loader.load("resources/skydome/skyTexture.png");
 
-
-    let skyMaterial = new MeshPhongMaterial({
-        map: skyTexture,
-        opacity: 5.0,
-        side: 2
-    });
-
-    let sky = new Mesh(skyGeometry, skyMaterial);
-
-
-    scene.add(sky);
-}
-skydome();
-water();
+let skydome = new SkyDome();
+scene.add(skydome);
+let water = new Water();
+scene.add(water);
 light();
-tree();
 
-function loop() {
+let balloon = new Balloon();
+scene.add(balloon);
+
+let velocity = new Vector3(0.0, 0.0, 0.0);
+let then = performance.now();
+
+function loop(now) {
     // update controller rotation.
+    const delta = now - then;
+    then = now;
+    const moveSpeed = move.speed * delta;
+
     mouseLookController.update(pitch, yaw);
     yaw = 0;
     pitch = 0;
+
+    velocity.set(0.0, 0.0, 0.0);
+
+    if (move.left)
+        velocity.x -= moveSpeed;
+    if (move.right)
+        velocity.x += moveSpeed;
+    if (move.forward)
+        velocity.z -= moveSpeed;
+    if (move.backwards)
+        velocity.z += moveSpeed;
+
+    velocity.applyQuaternion(camera.quaternion);
+    camera.position.add(velocity);
+
 
     // animate cube rotation:
     cube.rotation.x += 0.01;

@@ -34,6 +34,7 @@ export default class Utilities {
 	 * Loads heightmap data from an image.
 	 * The image must be completely loaded before using this method.
 	 * @param  {Image} image Image to load.
+	 * @param size
 	 * @return {Array} A Uint8Array containing the heightmap data.
 	 */
     static getHeightmapData(image, size) {
@@ -60,5 +61,34 @@ export default class Utilities {
         });
 
         return data;
+    }
+
+    static cloneObjects(object, numberOfClones){
+        let clones = [];
+        clones[0] = object;
+
+        for(let x = 0; x < numberOfClones; x++){
+            clones[x+1] = clones[x].clone();
+        }
+        return clones;
+    }
+
+    static getRandomCord(min, max) {
+        this.min = Math.ceil(min);
+        this.max = Math.floor(max);
+        return Math.floor(Math.random() * (this.max - this.min)) + this.min; //The maximum is exclusive and the minimum is inclusive
+    }
+
+
+    static randomXAndZCord(position, terrainGeometry) {
+
+        do{
+            position.x = this.getRandomCord(-50, 50);
+            position.z = this.getRandomCord(-50, 50);
+            position.y = terrainGeometry.getHeightAt(position);
+        }while(position.y < 4.0 || position.y > 10.0);
+
+
+        return position
     }
 }

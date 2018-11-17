@@ -9,11 +9,11 @@ export default class Stone extends Object3D{
     constructor(terrainGeometry) {
         super();
         new MTLLoader()
-            .load('resources/models/rocks/Rock1.mtl', (materials) => {
+            .load('resources/models/rocks/stone.mtl', (materials) => {
                 materials.preload();
                 new OBJLoader()
                     .setMaterials(materials)
-                    .load('resources/models/rocks/Rock1.obj', (object) => {
+                    .load('resources/models/rocks/stone.obj', (object) => {
 
                         object.traverse((node) => {
                             if (node instanceof Mesh) {
@@ -29,8 +29,8 @@ export default class Stone extends Object3D{
                             stones[i].position.xyz = Utilities.randomXAndZCord(stones[i].position, terrainGeometry);
                             stones[i].position.x -=50;
                             stones[i].position.z -=50;
-                            stones[i].position.y += 0;
-                            stones[i].scale.set(0.1, 0.1, 0.1);
+                            stones[i].position.y += 0.3;
+                            stones[i].scale.set(0.2, 0.2, 0.2);
                             this.add( stones[i] );
                         }
 

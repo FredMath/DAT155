@@ -1,5 +1,8 @@
 "use strict";
 
+import {Geometry,Line, LineBasicMaterial} from "./Three.es.js";
+
+
 /**
  * Collection of general purpose utilities.
  * oskarbraten
@@ -90,5 +93,33 @@ export default class Utilities {
 
 
         return position
+    }
+
+    static getAngle( position , path){
+        // get the tangent to the curve
+        let tangent = path.getTangent(position).normalize();
+
+
+        // change tangent to 3D
+
+        let angle = - Math.atan( tangent.z/tangent.x);
+
+        return angle;
+    }
+
+    static drawPath(curve){
+        let vertices = curve.getSpacedPoints(50);
+        let point;
+        // Change 2D points to 3D points
+        //Because our up is Y we have to set the y to the z poss and since waterheight is 4 we set Y to 4
+
+        let lineGeometry = new Geometry();
+        lineGeometry.vertices = vertices;
+        let lineMaterial = new LineBasicMaterial({
+            color: 0x000000
+        });
+        let line = new Line(lineGeometry, lineMaterial);
+
+        return line;
     }
 }

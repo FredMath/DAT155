@@ -32,8 +32,8 @@ export default class Tree extends Object3D{
                             trees[i].position.xyz = Utilities.randomXAndZCord(trees[i].position, terrainGeometry);
                             trees[i].position.x -=50;
                             trees[i].position.z -=50;
-                            trees[i].position.y += 2;
-                            // trees[i].scale.set(0.3, 0.3, 0.3);
+                            trees[i].position.y += 0.7;
+                            trees[i].scale.set(0.3, 0.3, 0.3);
                             this.add( trees[i] );
                         }
 

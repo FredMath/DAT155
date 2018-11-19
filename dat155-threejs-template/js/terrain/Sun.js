@@ -25,9 +25,9 @@ export default class Sun extends LOD {
         }
 
 
-        this.position.y = 90;
+        this.position.y = 80;
         this.position.x = 42;
-        let light = new PointLight(0xFFFFFF, 1.0, 500.0);
+        let light = new PointLight(0xFFFFFF, 0.8, 1500.0,);
         light.castShadow = true;
 
         this.add(light);

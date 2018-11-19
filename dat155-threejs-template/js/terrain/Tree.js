@@ -19,12 +19,6 @@ export default class Tree extends Object3D{
                             if (node instanceof Mesh) {
                                 node.castShadow = true;
                                 node.receiveShadow = true;
-                                // node.material[0].emissive.setHex(0x006900);
-                                // node.material[0].emissiveIntensity = 0.4;
-                                // node.material[1].emissive.setHex(0x404040);
-                                // node.material[1].emissiveIntensity = 0.4;
-                                // node.material[0].roughness = 1.0;
-                                // node.material[1].roughness = 1.0;
                             }
 
                         });

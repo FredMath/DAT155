@@ -3,14 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="451b0fa3-a920-4380-8e3f-8adf3d911c23" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/terrain/Balloon.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/terrain/Balloon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/terrain/Terrain.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/terrain/Terrain.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/terrain/Sun.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/terrain/Sun.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/terrain/Tree.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/terrain/Tree.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/terrain/Water.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/terrain/Water.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/images/water.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/models/lowPolyTree/lowpolytree.mtl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/models/lowPolyTree/lowpolytree.obj" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -44,9 +41,10 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="html" value="1" />
-          <entry key="jpg" value="2" />
-          <entry key="js" value="53" />
+          <entry key="html" value="2" />
+          <entry key="jpeg" value="1" />
+          <entry key="jpg" value="3" />
+          <entry key="js" value="54" />
           <entry key="mtl" value="7" />
           <entry key="obj" value="9" />
           <entry key="png" value="5" />
@@ -54,9 +52,9 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="1" />
-          <entry key="Image" value="7" />
-          <entry key="JavaScript" value="53" />
+          <entry key="HTML" value="2" />
+          <entry key="Image" value="9" />
+          <entry key="JavaScript" value="54" />
           <entry key="PLAIN_TEXT" value="16" />
         </counts>
       </usages-collector>
@@ -64,14 +62,15 @@
       <usages-collector id="statistics.vcs.git.usages" />
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="445" />
-          <entry key="JavaScript" value="9328" />
+          <entry key="GLSL shader file" value="6" />
+          <entry key="HTML" value="696" />
+          <entry key="JavaScript" value="10050" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="445" />
-          <entry key="js" value="9328" />
+          <entry key="html" value="702" />
+          <entry key="js" value="10050" />
         </counts>
       </usages-collector>
     </session>
@@ -79,10 +78,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="136" column="28" lean-forward="true" selection-start-line="136" selection-start-column="28" selection-end-line="136" selection-end-column="28" />
+            <state relative-caret-position="257">
+              <caret line="55" column="47" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="47" />
               <folding>
                 <element signature="e#0#183#0" expanded="true" />
               </folding>
@@ -93,8 +101,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/terrain/Water.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+            <state relative-caret-position="377">
+              <caret line="35" column="60" selection-start-line="35" selection-start-column="60" selection-end-line="35" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -102,20 +110,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/terrain/Sun.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="30" column="32" lean-forward="true" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/terrain/Tree.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="20" column="58" selection-start-line="20" selection-start-column="58" selection-end-line="20" selection-end-column="58" />
-              <folding>
-                <element signature="e#0#72#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="391">
+              <caret line="29" column="48" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -123,8 +119,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/terrain/Terrain.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="18" column="78" selection-start-line="18" selection-start-column="78" selection-end-line="18" selection-end-column="78" />
+            <state relative-caret-position="135">
+              <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/terrain/Tree.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="389">
+              <caret line="28" column="53" lean-forward="true" selection-start-line="28" selection-start-column="53" selection-end-line="28" selection-end-column="53" />
+              <folding>
+                <element signature="e#0#72#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -170,18 +178,18 @@
         <option value="$PROJECT_DIR$/js/skybox.js" />
         <option value="$PROJECT_DIR$/js/Skybox.js" />
         <option value="$PROJECT_DIR$/js/lib/OBJLoader.js" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/resources/models/Satellite/satellite.obj" />
         <option value="$PROJECT_DIR$/js/terrain/SkyDome.js" />
         <option value="$PROJECT_DIR$/js/terrain/Stone.js" />
         <option value="$PROJECT_DIR$/js/controls/KeyboardControls.js" />
         <option value="$PROJECT_DIR$/js/lib/Utilities.js" />
+        <option value="$PROJECT_DIR$/js/terrain/SunNode.js" />
+        <option value="$PROJECT_DIR$/js/terrain/Balloon.js" />
         <option value="$PROJECT_DIR$/js/terrain/Tree.js" />
         <option value="$PROJECT_DIR$/js/terrain/Terrain.js" />
-        <option value="$PROJECT_DIR$/js/terrain/SunNode.js" />
-        <option value="$PROJECT_DIR$/js/main.js" />
+        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/js/terrain/Sun.js" />
-        <option value="$PROJECT_DIR$/js/terrain/Balloon.js" />
+        <option value="$PROJECT_DIR$/js/main.js" />
         <option value="$PROJECT_DIR$/js/terrain/Water.js" />
       </list>
     </option>
@@ -251,13 +259,6 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="dat155-threejs-template" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dat155-threejs-template" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="lowPolyTree" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -280,8 +281,8 @@
       <recent name="$PROJECT_DIR$/resources/skybox" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/models/lowPolyTree" />
       <recent name="$PROJECT_DIR$/resources/images" />
+      <recent name="$PROJECT_DIR$/resources/models/lowPolyTree" />
       <recent name="$PROJECT_DIR$/resources/models/rocks" />
       <recent name="$PROJECT_DIR$/resources/skydome" />
       <recent name="$PROJECT_DIR$/resources/models/Balloon" />
@@ -341,12 +342,12 @@
       <workItem from="1541848093531" duration="3696000" />
       <workItem from="1542280578539" duration="4398000" />
       <workItem from="1542297198123" duration="6634000" />
-      <workItem from="1542450446339" duration="16734000" />
+      <workItem from="1542450446339" duration="24425000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74491000" />
+    <option name="totallyTimeSpent" value="82182000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -482,13 +483,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="7" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/terrain/TerrainBufferGeometry.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="615">
@@ -496,20 +490,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/terrain/Terrain.js">
+    <entry file="file://$PROJECT_DIR$/js/terrain/Balloon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="18" column="78" selection-start-line="18" selection-start-column="78" selection-end-line="18" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="136" column="28" lean-forward="true" selection-start-line="136" selection-start-column="28" selection-end-line="136" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#183#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="248">
+          <caret line="26" column="49" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="49" />
         </state>
       </provider>
     </entry>
@@ -523,34 +507,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/terrain/Sun.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="30" column="32" lean-forward="true" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/terrain/Balloon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="26" column="49" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/terrain/Tree.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="20" column="58" selection-start-line="20" selection-start-column="58" selection-end-line="20" selection-end-column="58" />
+        <state relative-caret-position="389">
+          <caret line="28" column="53" lean-forward="true" selection-start-line="28" selection-start-column="53" selection-end-line="28" selection-end-column="53" />
           <folding>
             <element signature="e#0#72#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/images/normalMap.jpeg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/images/waterTexture.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/terrain/Sun.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="29" column="48" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/terrain/Terrain.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="55" column="47" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#183#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/terrain/Water.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+        <state relative-caret-position="377">
+          <caret line="35" column="60" selection-start-line="35" selection-start-column="60" selection-end-line="35" selection-end-column="60" />
         </state>
       </provider>
     </entry>

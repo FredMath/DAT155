@@ -7,6 +7,7 @@ import {
     Mesh,
     Color,
     Fog,
+    PCFSoftShadowMap
 } from './lib/Three.es.js';
 
 
@@ -21,7 +22,7 @@ import Utilities from "./lib/Utilities.js";
 import SunNode from "./terrain/SunNode.js";
 
 
-let fogColor = new Color(0xffffff);
+let fogColor = new Color(0x808080);
 const scene = new Scene();
 
 
@@ -32,6 +33,8 @@ const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight,
 const renderer = new WebGLRenderer();
 renderer.setClearColor(0xffffff);
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = PCFSoftShadowMap;
 
 
 /**
@@ -52,20 +55,9 @@ window.addEventListener('resize', () => {
  */
 document.body.appendChild(renderer.domElement);
 
-const geometry = new BoxBufferGeometry(1, 1, 1);
-const material = new MeshBasicMaterial({color: 0x00ff00});
-const cube = new Mesh(geometry, material);
-
-scene.add(cube);
-
 camera.position.z = 55;
 camera.position.y = 15;
 
-// function light() {
-//     let light = new AmbientLight(0xffffff);
-//     light.intensity = 1.0;
-//     scene.add(light);
-// }
 
 /**
  * Set up camera and keyboard controller:
@@ -109,11 +101,10 @@ scene.add(skydome);
 
 let water = new Water();
 scene.add(water);
-// light();
 
 let balloon = new Balloon();
 scene.add(balloon);
-scene.add(Utilities.drawPath(balloon.line));
+// scene.add(Utilities.drawPath(balloon.line));
 
 let terrain = new Terrain();
 scene.add(terrain);
@@ -123,11 +114,14 @@ scene.add(sun);
 
 
 let then = performance.now();
+let start = Date.now();
+let deltaTime = 0;
 
 function loop(now) {
     // update controller rotation.
     const delta = now - then;
     then = now;
+    deltaTime = Date.now()-start;
 
     mouseLookController.update(pitch, yaw);
     yaw = 0;
@@ -136,9 +130,7 @@ function loop(now) {
     keyboardController.update(delta);
     sun.rotation.y += 0.004;
 
-    // animate cube rotation:
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+    water.flow(deltaTime);
 
     balloon.fly();
     sun.updateLOD(camera);

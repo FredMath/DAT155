@@ -11,11 +11,12 @@ export default class Water extends Object3D {
 
         let waterMaterial = new MeshPhongMaterial({
             map: waterTexture,
-            side: 2
+            side: 2,
+            receiveShadow: true
         });
 
         let water = new Mesh(waterGeometry, waterMaterial);
-        water.translateY(0.1);
+        water.translateY(0.25);
         water.rotation.x = Math.PI * -0.5;
         this.add(water);
 

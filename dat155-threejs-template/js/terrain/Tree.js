@@ -9,20 +9,22 @@ export default class Tree extends Object3D{
     constructor(terrainGeometry) {
         super();
         new MTLLoader()
-            .load('resources/models/lowPolyTree/lowpolytree.mtl', (materials) => {
+            .load('resources/models/lowPolyTree/Tree2.mtl', (materials) => {
                 materials.preload();
                 new OBJLoader()
                     .setMaterials(materials)
-                    .load('resources/models/lowPolyTree/lowpolytree.obj', (object) => {
+                    .load('resources/models/lowPolyTree/Tree2.obj', (object) => {
 
                         object.traverse((node) => {
                             if (node instanceof Mesh) {
-                                node.material[0].emissive.setHex(0x006900);
-                                node.material[0].emissiveIntensity = 0.4;
-                                node.material[1].emissive.setHex(0x404040);
-                                node.material[1].emissiveIntensity = 0.4;
-                                node.material[0].roughness = 1.0;
-                                node.material[1].roughness = 1.0;
+                                node.castShadow = true;
+                                node.receiveShadow = true;
+                                // node.material[0].emissive.setHex(0x006900);
+                                // node.material[0].emissiveIntensity = 0.4;
+                                // node.material[1].emissive.setHex(0x404040);
+                                // node.material[1].emissiveIntensity = 0.4;
+                                // node.material[0].roughness = 1.0;
+                                // node.material[1].roughness = 1.0;
                             }
 
                         });
@@ -32,8 +34,8 @@ export default class Tree extends Object3D{
                             trees[i].position.xyz = Utilities.randomXAndZCord(trees[i].position, terrainGeometry);
                             trees[i].position.x -=50;
                             trees[i].position.z -=50;
-                            trees[i].position.y += 0.7;
-                            trees[i].scale.set(0.3, 0.3, 0.3);
+                            trees[i].position.y += 0;
+                            trees[i].scale.set(0.4, 0.4, 0.4);
                             this.add( trees[i] );
                         }
 

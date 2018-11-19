@@ -16,10 +16,18 @@ export default class Terrain extends Object3D {
             });
 
             const terrainMaterial = new MeshPhongMaterial({
-                map: new TextureLoader().load("resources/images/terrain.jpg")
+                map: new TextureLoader().load("resources/images/terrain.jpg"),
+                clipShadows: true
             });
 
             const terrain = new Mesh(terrainGeometry, terrainMaterial);
+
+            terrain.traverse ( function (node) {
+                if (node instanceof Mesh ){
+                    node.castShadow = true ;
+                    node.receiveShadow = true ;
+                }
+            });
 
             this.add(terrain);
             let tree = new Tree(terrainGeometry);

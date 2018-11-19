@@ -5,7 +5,6 @@ import {
     BoxBufferGeometry,
     MeshBasicMaterial,
     Mesh,
-    AmbientLight,
     Color,
     Fog,
 } from './lib/Three.es.js';
@@ -19,6 +18,7 @@ import Balloon from "./terrain/Balloon.js";
 import Water from "./terrain/Water.js";
 import Terrain from "./terrain/Terrain.js";
 import Utilities from "./lib/Utilities.js";
+import SunNode from "./terrain/SunNode.js";
 
 
 let fogColor = new Color(0xffffff);
@@ -61,11 +61,11 @@ scene.add(cube);
 camera.position.z = 55;
 camera.position.y = 15;
 
-function light() {
-    let light = new AmbientLight(0xffffff);
-    light.intensity = 1.0;
-    scene.add(light);
-}
+// function light() {
+//     let light = new AmbientLight(0xffffff);
+//     light.intensity = 1.0;
+//     scene.add(light);
+// }
 
 /**
  * Set up camera and keyboard controller:
@@ -109,16 +109,17 @@ scene.add(skydome);
 
 let water = new Water();
 scene.add(water);
-light();
+// light();
 
 let balloon = new Balloon();
-
 scene.add(balloon);
+scene.add(Utilities.drawPath(balloon.line));
 
 let terrain = new Terrain();
 scene.add(terrain);
 
-scene.add(Utilities.drawPath(balloon.line));
+let sun = new SunNode();
+scene.add(sun);
 
 
 let then = performance.now();
@@ -133,12 +134,14 @@ function loop(now) {
     pitch = 0;
 
     keyboardController.update(delta);
+    sun.rotation.y += 0.004;
 
     // animate cube rotation:
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
 
     balloon.fly();
+    sun.updateLOD(camera);
 
     // render scene:
     renderer.render(scene, camera);

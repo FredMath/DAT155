@@ -24,6 +24,7 @@ export default class Balloon extends Group {
 
                         object.position.y = 0;
                         object.position.x = 5;
+                        object.castShadow = true;
 
                         object.scale.set(0.15, 0.15, 0.15);
 

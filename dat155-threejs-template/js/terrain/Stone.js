@@ -1,43 +1,36 @@
-import {Mesh, MTLLoader, OBJLoader, Object3D} from "../lib/Three.es.js";
+import {TextureLoader, Object3D, SpriteMaterial, Sprite} from "../lib/Three.es.js";
 import Utilities from "../lib/Utilities.js";
 
 
 
 
-export default class Stone extends Object3D{
+export default class Stone extends Sprite{
 
     constructor(terrainGeometry) {
         super();
-        new MTLLoader()
-            .load('resources/models/rocks/stone.mtl', (materials) => {
-                materials.preload();
-                new OBJLoader()
-                    .setMaterials(materials)
-                    .load('resources/models/rocks/stone.obj', (object) => {
 
-                        object.traverse((node) => {
-                            if (node instanceof Mesh) {
-                                node.material.emissive.setHex(0x808080);
-                                node.material.emissiveIntensity = 0.4;
+        let spriteMap = new TextureLoader().load("resources/images/stone.png");
+        let spriteMaterial = new SpriteMaterial({
+            map: spriteMap,
+            color: 0xffffff,
+            fog: true,
 
-                            }
+            transparent: true
 
-                        });
+        });
 
-                        const stones = Utilities.cloneObjects(object, 20);
-                        for (let i = 0; i < stones.length; i++) {
-                            stones[i].position.xyz = Utilities.randomXAndZCord(stones[i].position, terrainGeometry);
-                            stones[i].position.x -=50;
-                            stones[i].position.z -=50;
-                            stones[i].position.y += 0.3;
-                            stones[i].scale.set(0.2, 0.2, 0.2);
-                            this.add( stones[i] );
-                        }
+        let sprite = new Sprite(spriteMaterial);
 
-                        this.add(object);
+        let stones = Utilities.cloneObjects(sprite, 100);
 
-                    });
+        for (let i = 0; i < stones.length; i++) {
+            stones[i].position.xyz = Utilities.randomXAndZCord(stones[i].position, terrainGeometry);
+            stones[i].position.y += 0.5;
+            this.add(stones[i]);
+        }
 
-            });
+        this.position.x -= 50;
+        this.position.z -= 50;
+
     }
 }

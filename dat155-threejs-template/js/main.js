@@ -26,7 +26,7 @@ let fogColor = new Color(0x808080);
 const scene = new Scene();
 
 
-scene.fog = new Fog(fogColor, -10, 150);
+// scene.fog = new Fog(fogColor, -10, 150);
 
 const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 

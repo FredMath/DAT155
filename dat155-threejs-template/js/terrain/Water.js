@@ -7,26 +7,26 @@ export default class Water extends Object3D {
         super();
         let loader = new TextureLoader();
         let waterGeometry = new CircleBufferGeometry(100, 50);
-        let normalMap = loader.load("resources/images/normalMap.jpeg");
+        let normalMap = loader.load("resources/images/normalMap.png");
         let waterTexture = loader.load("resources/images/waterTexture.jpg");
 
         let waterMaterial = new MeshPhongMaterial({
-            // map: waterTexture
-            // color: 0x5e807f,
-            emissive: 0x5e807f,
+            // map: waterTexture,
+            color: 0x5e807f,
+            // emissive: 0x5e807f,
             emissiveIntensity: 0.8,
             normalMap: normalMap,
             normalScale: new Vector2(1.0, 1.0),
-            shininess: 10,
+            shininess: 0.5,
             side: 2,
-            // receiveShadow: true,
+            receiveShadow: true,
             lights: true,
+            skinning: true,
             reflectivity: 0.2,
 
         });
 
         this.water = new Mesh(waterGeometry, waterMaterial);
-        // this.water.translateY(0.6);
         this.water.rotation.x = Math.PI * -0.5;
         this.add(this.water);
 
@@ -34,8 +34,8 @@ export default class Water extends Object3D {
 
     flow(deltaTime) {
         this.water.position.y = Math.sin(deltaTime/4000) + 2;
-        this.water.position.z = Math.sin(deltaTime/4000);
-        this.water.material.normalScale.set(Math.sin(deltaTime/4000), 1.0);
+        this.water.position.z = Math.sin(deltaTime/2000);
+        this.water.material.normalScale.set(Math.sin(deltaTime/800), 1.0);
     }
 
 

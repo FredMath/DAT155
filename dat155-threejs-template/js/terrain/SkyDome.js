@@ -13,6 +13,7 @@ export default class SkyDome extends Object3D{
             map: skyTexture,
             opacity: 5.0,
             side: 2
+
         });
 
         let sky = new Mesh(skyGeometry, skyMaterial);
